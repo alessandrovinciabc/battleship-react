@@ -4,7 +4,7 @@
 
 Classic game of battleship.
 
-## Technologies used
+## Technologies
 
 - HTML, CSS, Javascript
 - React
