@@ -14,10 +14,11 @@ describe('return value', () => {
     expect(typeof gameBoard()).toBe('object');
   });
   test('has squares', () => {
+    let template = { ship: null, hit: false };
     expect(gameBoard(2)).toMatchObject({
       squares: [
-        [false, false],
-        [false, false],
+        [template, template],
+        [template, template],
       ],
     });
   });
@@ -35,13 +36,7 @@ describe('functionality', () => {
       let newShip = ship(1);
       newGameBoard.placeShip(newShip, { x: 0, y: 0 }, 'horizontal');
       expect(newGameBoard).toMatchObject({
-        ships: [
-          {
-            coords: { x: 0, y: 0 },
-            obj: newShip,
-            orientation: 'horizontal',
-          },
-        ],
+        ships: [newShip],
       });
     });
 

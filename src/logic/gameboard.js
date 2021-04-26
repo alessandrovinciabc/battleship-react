@@ -1,7 +1,7 @@
 function gameBoard(size = 10) {
   if (size <= 0) throw new Error('Invalid board size.');
 
-  let squares = Array(size).fill(Array(size).fill(false));
+  let squares = Array(size).fill(Array(size).fill({ ship: null, hit: false }));
 
   return {
     squares,
@@ -25,7 +25,7 @@ function gameBoard(size = 10) {
       if (boundToCheck + ship.size > size)
         throw new Error('Invalid position for ship.');
 
-      this.ships.push({ coords: { x, y }, obj: ship, orientation });
+      this.ships.push(ship);
     },
   };
 }
