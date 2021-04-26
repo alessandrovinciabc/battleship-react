@@ -4,10 +4,11 @@
 
 Classic game of battleship.
 
-## Technologies
+## Technologies used
 
 - HTML, CSS, Javascript
 - React
+- Jest for testing
 
 ## How to use
 
