@@ -84,6 +84,7 @@ function gameBoard(size = 10) {
 
       return false;
     },
+    hasWorkingShips() {},
   };
 }
 

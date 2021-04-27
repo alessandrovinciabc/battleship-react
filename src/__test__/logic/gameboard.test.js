@@ -4,9 +4,8 @@ import ship from '../../logic/ship.js';
 describe('with arguments', () => {
   test('none return a standard gameboard', () => {
     let standard = gameBoard(10);
-    delete standard.placeShip;
-    delete standard.receiveHit;
-    expect(gameBoard()).toMatchObject(standard);
+    let standardWithoutMethods = JSON.parse(JSON.stringify(standard));
+    expect(gameBoard()).toMatchObject(standardWithoutMethods);
   });
 });
 
@@ -117,6 +116,12 @@ describe('functionality', () => {
       board.placeShip(newShip, { x: 0, y: 0 });
       board.receiveHit({ x: 0, y: 0 });
       expect(board.ships[0].squares[0]).toBe(true);
+    });
+  });
+
+  describe('has working ships', () => {
+    test('returns false with no ships on board', () => {
+      expect(gameBoard(1).hasWorkingShips()).toBe(false);
     });
   });
 });
