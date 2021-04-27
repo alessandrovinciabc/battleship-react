@@ -5,6 +5,7 @@ describe('with arguments', () => {
   test('none return a standard gameboard', () => {
     let standard = gameBoard(10);
     delete standard.placeShip;
+    delete standard.receiveHit;
     expect(gameBoard()).toMatchObject(standard);
   });
 });
@@ -96,6 +97,26 @@ describe('functionality', () => {
       expect(() => {
         newGameBoard.placeShip(anotherShip, { x: 0, y: 0 });
       }).toThrow();
+    });
+  });
+
+  describe('receive hit', () => {
+    test('tells you if you if ship was hit', () => {
+      let newBoard = gameBoard(1);
+      let newShip = ship(1);
+      newBoard.placeShip(newShip, { x: 0, y: 0 });
+      expect(newBoard.receiveHit({ x: 0, y: 0 })).toBe(true);
+    });
+    test('returns false if no ship was hit', () => {
+      let board = gameBoard(1);
+      expect(board.receiveHit({ x: 0, y: 0 })).toBe(false);
+    });
+    test('registers hit on the ship objects', () => {
+      let board = gameBoard(1);
+      let newShip = ship(1);
+      board.placeShip(newShip, { x: 0, y: 0 });
+      board.receiveHit({ x: 0, y: 0 });
+      expect(board.ships[0].squares[0]).toBe(true);
     });
   });
 });

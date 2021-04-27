@@ -5,6 +5,7 @@ function createBoardSquares(size) {
     for (let k = 0; k < size; ++k) {
       xArray.push({
         shipIndex: null,
+        shipComponent: null,
         hit: false,
       });
     }
@@ -49,8 +50,10 @@ function gameBoard(size = 10) {
             );
         }
 
+        let count = 1;
         for (let i = x; i < x + ship.size; ++i) {
           this.squares[y][i].shipIndex = this.ships.length;
+          this.squares[y][i].shipComponent = count++;
         }
       } else {
         for (let i = y; i < ship.size; ++i) {
@@ -60,12 +63,26 @@ function gameBoard(size = 10) {
             );
         }
 
+        let count = 1;
         for (let i = y; i < y + ship.size; ++i) {
           this.squares[i][x].shipIndex = this.ships.length;
+          this.squares[i][x].shipComponent = count++;
         }
       }
 
       this.ships.push(ship);
+    },
+    receiveHit(coords) {
+      let { x, y } = coords;
+      let square = this.squares[y][x];
+      if (square.shipIndex !== null) {
+        square.hit = true;
+        this.ships[square.shipIndex].hit(square.shipComponent);
+
+        return true;
+      }
+
+      return false;
     },
   };
 }
