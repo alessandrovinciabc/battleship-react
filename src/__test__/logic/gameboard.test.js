@@ -54,6 +54,22 @@ describe('functionality', () => {
       });
     });
 
+    test('lets you place ships on the board vertically', () => {
+      let board = gameBoard(2);
+      let newShip = ship(2);
+      board.placeShip(newShip, { x: 1, y: 0 }, 'vertical');
+
+      let emptyTemplate = { hit: false, shipIndex: null };
+      let filledTemplate = { hit: false, shipIndex: 0 };
+      expect(board).toMatchObject({
+        ships: [newShip],
+        squares: [
+          [emptyTemplate, filledTemplate],
+          [emptyTemplate, filledTemplate],
+        ],
+      });
+    });
+
     test('prevents you from placing ships in illegal coords', () => {
       let newGameBoard = gameBoard(1);
       let newShip = ship(1);
