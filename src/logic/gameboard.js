@@ -1,6 +1,4 @@
-function gameBoard(size = 10) {
-  if (size <= 0) throw new Error('Invalid board size.');
-
+function createBoardSquares(size) {
   let yArray = [];
   for (let i = 0; i < size; ++i) {
     let xArray = [];
@@ -13,8 +11,16 @@ function gameBoard(size = 10) {
     yArray.push(xArray);
   }
 
+  return yArray;
+}
+
+function gameBoard(size = 10) {
+  if (size <= 0) throw new Error('Invalid board size.');
+
+  let squares = createBoardSquares(size);
+
   return {
-    squares: yArray,
+    squares,
     ships: [],
     placeShip(ship, coords, orientation = 'horizontal') {
       let { x, y } = coords;
