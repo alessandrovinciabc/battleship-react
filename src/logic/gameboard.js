@@ -46,6 +46,17 @@ function gameBoard(size = 10) {
         for (let i = x; i < x + ship.size; ++i) {
           this.squares[y][i].shipIndex = this.ships.length;
         }
+      } else {
+        for (let i = y; i < ship.size; ++i) {
+          if (this.squares[i][x].shipIndex !== null)
+            throw new Error(
+              'Invalid position for ship: overlaps with another.'
+            );
+        }
+
+        for (let i = y; i < y + ship.size; ++i) {
+          this.squares[i][x].shipIndex = this.ships.length;
+        }
       }
 
       this.ships.push(ship);

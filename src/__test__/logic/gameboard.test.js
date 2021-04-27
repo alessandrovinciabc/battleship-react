@@ -60,6 +60,14 @@ describe('functionality', () => {
       expect(() => {
         newGameBoard.placeShip(newShip, { x: 2, y: 0 });
       }).toThrow();
+
+      let anotherBoard = gameBoard(2);
+      let another = ship(1);
+      let vertical = ship(2);
+      anotherBoard.placeShip(another, { x: 0, y: 0 });
+      expect(() => {
+        anotherBoard.placeShip(vertical, { x: 0, y: 0 }, 'vertical');
+      }).toThrow();
     });
 
     test('prevents you from placing overlapping ships', () => {
