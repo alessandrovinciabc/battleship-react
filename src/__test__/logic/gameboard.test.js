@@ -14,7 +14,7 @@ describe('return value', () => {
     expect(typeof gameBoard()).toBe('object');
   });
   test('has squares', () => {
-    let template = { ship: null, hit: false };
+    let template = { shipIndex: null, hit: false };
     expect(gameBoard(2)).toMatchObject({
       squares: [
         [template, template],
@@ -31,12 +31,26 @@ describe('return value', () => {
 
 describe('functionality', () => {
   describe('place ship', () => {
-    test('lets you place ships on the board', () => {
+    test('lets you place ships on the board horizontally', () => {
       let newGameBoard = gameBoard(1);
       let newShip = ship(1);
       newGameBoard.placeShip(newShip, { x: 0, y: 0 }, 'horizontal');
       expect(newGameBoard).toMatchObject({
         ships: [newShip],
+        squares: [[{ hit: false, shipIndex: 0 }]],
+      });
+
+      let emptyTemplate = { hit: false, shipIndex: null };
+      let filledTemplate = { hit: false, shipIndex: 0 };
+      let anotherGameBoard = gameBoard(2);
+      let anotherShip = ship(2);
+      anotherGameBoard.placeShip(anotherShip, { x: 0, y: 1 }, 'horizontal');
+      expect(anotherGameBoard).toMatchObject({
+        ships: [anotherShip],
+        squares: [
+          [emptyTemplate, emptyTemplate],
+          [filledTemplate, filledTemplate],
+        ],
       });
     });
 

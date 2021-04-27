@@ -1,10 +1,20 @@
 function gameBoard(size = 10) {
   if (size <= 0) throw new Error('Invalid board size.');
 
-  let squares = Array(size).fill(Array(size).fill({ ship: null, hit: false }));
+  let yArray = [];
+  for (let i = 0; i < size; ++i) {
+    let xArray = [];
+    for (let k = 0; k < size; ++k) {
+      xArray.push({
+        shipIndex: null,
+        hit: false,
+      });
+    }
+    yArray.push(xArray);
+  }
 
   return {
-    squares,
+    squares: yArray,
     ships: [],
     placeShip(ship, coords, orientation = 'horizontal') {
       let { x, y } = coords;
@@ -24,6 +34,19 @@ function gameBoard(size = 10) {
 
       if (boundToCheck + ship.size > size)
         throw new Error('Invalid position for ship.');
+
+      if (orientation === 'horizontal') {
+        for (let i = x; i < ship.size; ++i) {
+          if (this.squares[y][i].shipIndex !== null)
+            throw new Error(
+              'Invalid position for ship: overlaps with another.'
+            );
+        }
+
+        for (let i = x; i < x + ship.size; ++i) {
+          this.squares[y][i].shipIndex = this.ships.length;
+        }
+      }
 
       this.ships.push(ship);
     },
