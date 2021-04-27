@@ -123,5 +123,25 @@ describe('functionality', () => {
     test('returns false with no ships on board', () => {
       expect(gameBoard(1).hasWorkingShips()).toBe(false);
     });
+    test('returns true with ships on board', () => {
+      let newBoard = gameBoard(1);
+      let newShip = ship(1);
+      newBoard.placeShip(newShip, { x: 0, y: 0 });
+      expect(newBoard.hasWorkingShips()).toBe(true);
+    });
+    test('returns false if ships are sunk', () => {
+      let newBoard = gameBoard(2);
+      let someShips = [ship(1), ship(1)];
+      let points = [
+        { x: 0, y: 0 },
+        { x: 1, y: 1 },
+      ];
+      for (let i = 0; i < points.length; ++i) {
+        newBoard.placeShip(someShips[i], points[i]);
+        newBoard.receiveHit(points[i]);
+      }
+
+      expect(newBoard.hasWorkingShips()).toBe(false);
+    });
   });
 });

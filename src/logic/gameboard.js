@@ -84,7 +84,12 @@ function gameBoard(size = 10) {
 
       return false;
     },
-    hasWorkingShips() {},
+    hasWorkingShips() {
+      if (!this.ships.length) return false;
+
+      let result = this.ships.every((ship) => !ship.isSunk());
+      return result;
+    },
   };
 }
 
