@@ -14,6 +14,8 @@ let computer = {
 
     let range = hittableSquares.length;
 
+    if (range === 0) throw new Error('No squares to hit!');
+
     let move = {
       ...hittableSquares[getRandomNumber(0, range - 1)],
     };

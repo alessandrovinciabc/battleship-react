@@ -1,5 +1,4 @@
 import gameBoard from '../../logic/gameboard.js';
-import ship from '../../logic/ship.js';
 
 import computer from '../../logic/computer.js';
 import getRandomNumber from '../../logic/util/random.js';
@@ -26,4 +25,13 @@ test("doesn't pick illegal moves", () => {
   getRandomNumber.mockReturnValue(0);
 
   expect(computer.pickMove(board)).toMatchObject({ x: 1, y: 1 });
+});
+
+test('throws if all squares are already hit', () => {
+  let board = gameBoard(1);
+  board.receiveHit({ x: 0, y: 0 });
+
+  expect(() => {
+    computer.pickMove(board);
+  }).toThrow();
 });
