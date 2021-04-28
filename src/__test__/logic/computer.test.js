@@ -15,3 +15,15 @@ test('picks different moves', () => {
   let moreMoves = [computer.pickMove(board), computer.pickMove(board)];
   expect(moreMoves[0]).not.toMatchObject(moreMoves[1]);
 });
+
+test("doesn't pick illegal moves", () => {
+  let board = gameBoard(2);
+  board.receiveHit({ x: 0, y: 0 });
+  board.receiveHit({ x: 0, y: 1 });
+  board.receiveHit({ x: 1, y: 0 });
+
+  getRandomNumber.mockReset();
+  getRandomNumber.mockReturnValue(0);
+
+  expect(computer.pickMove(board)).toMatchObject({ x: 1, y: 1 });
+});
