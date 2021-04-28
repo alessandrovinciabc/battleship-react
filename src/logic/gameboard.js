@@ -76,11 +76,11 @@ function gameBoard(size = 10) {
       let { x, y } = coords;
       let square = this.squares[y][x];
       if (square.shipIndex !== null) {
-        square.hit = true;
         this.ships[square.shipIndex].hit(square.shipComponent);
 
         return true;
       }
+      square.hit = true;
 
       return false;
     },
