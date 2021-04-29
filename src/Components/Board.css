@@ -1,3 +1,37 @@
 .Board {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.squares {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  height: 350px;
+  width: 350px;
+
+  border: 1px solid black;
+}
+
+.square {
+  height: 10%;
+  width: 10%;
+
+  border: 1px solid black;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square--hit::after {
+  content: '';
+  z-index: 1;
+
+  border-radius: 100%;
+  background-color: grey;
+  height: 12px;
+  width: 12px;
 }

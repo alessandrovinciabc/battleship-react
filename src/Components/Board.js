@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Board.css';
+
 function Board(props) {
   return (
     <div className="Board">
@@ -11,9 +13,12 @@ function Board(props) {
           return row.map((square, x) => {
             return (
               <div
-                className="square"
+                className={`square ${square.hit && 'square--hit'}`}
                 data-testid="square"
                 key={`${x},${y}`}
+                onClick={() => {
+                  props.handlers({ x, y });
+                }}
               ></div>
             );
           });

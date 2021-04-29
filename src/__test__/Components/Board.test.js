@@ -46,3 +46,13 @@ test('board duplicates state correctly', () => {
     nextState.hasWorkingShips();
   }).not.toThrow();
 });
+
+test('displays squares that are hit differently', () => {
+  const board = gameBoard(1);
+  board.receiveHit({ x: 0, y: 0 });
+
+  const { getByTestId } = render(<Board board={board} />);
+  let square = getByTestId('square');
+
+  expect(square).toHaveClass('square--hit');
+});
