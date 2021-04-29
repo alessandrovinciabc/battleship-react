@@ -14,16 +14,20 @@ function App() {
   let [computerBoard, setComputerBoard] = useState(gameBoard(10));
 
   let handleSquareClick = (coords) => {
-    setComputerBoard((latest) => {
-      return produce(latest, (draft) => {
-        draft.receiveHit(coords);
-      });
-    });
-
-    setPlayerBoard((latest) => {
+    let setPlayerBoardCallback = (latest) => {
       return produce(latest, (draft) => {
         let move = computer.pickMove(draft);
         draft.receiveHit(move);
+      });
+    };
+
+    setComputerBoard((latest) => {
+      if (latest.squares[coords.y][coords.x].hit) return latest;
+
+      setPlayerBoard(setPlayerBoardCallback);
+
+      return produce(latest, (draft) => {
+        draft.receiveHit(coords);
       });
     });
   };
