@@ -56,6 +56,10 @@
   width: 12px;
 }
 
+.ship.square--hit::after {
+  background-color: red;
+}
+
 .ship {
   background-color: navy;
 }
