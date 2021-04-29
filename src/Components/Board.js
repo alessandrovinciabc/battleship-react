@@ -6,19 +6,25 @@ function Board(props) {
   return (
     <div className="Board">
       <div className="Board__title" data-testid="title">
-        {props.playerName}
+        <span className="title__text">{props.playerName}</span>
       </div>
       <div className="squares">
         {props.board?.squares.map((row, y) => {
           return row.map((square, x) => {
             return (
               <div
-                className={`square ${square.hit && 'square--hit'}`}
+                className={`square ${square.hit ? 'square--hit' : ''} 
+                  ${square.shipIndex !== null ? 'ship' : ''}
+                  `}
                 data-testid="square"
                 key={`${x},${y}`}
-                onClick={() => {
-                  props.handlers({ x, y });
-                }}
+                onClick={
+                  props.handlers
+                    ? () => {
+                        props.handlers({ x, y });
+                      }
+                    : null
+                }
               ></div>
             );
           });

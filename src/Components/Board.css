@@ -3,14 +3,34 @@
 
   display: flex;
   justify-content: center;
+
+  margin: 2rem;
+  padding: 5px;
+
+  position: relative;
+}
+
+.Board__title {
+  width: 50px;
+  position: relative;
+}
+
+.title__text {
+  position: absolute;
+  display: block;
+
+  text-orientation: upright;
+  writing-mode: vertical-lr;
+
+  font-size: 2rem;
 }
 
 .squares {
   display: flex;
   flex-wrap: wrap;
   align-content: center;
-  height: 350px;
-  width: 350px;
+  height: 300px;
+  width: 300px;
 
   border: 1px solid black;
 }
@@ -34,4 +54,8 @@
   background-color: grey;
   height: 12px;
   width: 12px;
+}
+
+.ship {
+  background-color: navy;
 }

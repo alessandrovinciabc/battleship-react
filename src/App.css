@@ -1,0 +1,25 @@
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  width: 100%;
+}
+
+.App__title {
+  font-size: 3rem;
+  font-weight: bold;
+
+  display: flex;
+  justify-content: center;
+
+  text-decoration: underline 2px solid navy;
+}
+
+.App__container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  justify-content: center;
+}

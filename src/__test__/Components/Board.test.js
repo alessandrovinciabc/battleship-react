@@ -1,9 +1,10 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import gameBoard from '../../logic/gameboard.js';
+import ship from '../../logic/ship.js';
 
 import Board from '../../Components/Board.js';
 
@@ -55,4 +56,15 @@ test('displays squares that are hit differently', () => {
   let square = getByTestId('square');
 
   expect(square).toHaveClass('square--hit');
+});
+
+test('displays ships', () => {
+  const board = gameBoard(1);
+  let newShip = ship(1);
+  board.placeShip(newShip, { x: 0, y: 0 });
+
+  const { getByTestId } = render(<Board board={board} />);
+  let square = getByTestId('square');
+
+  expect(square).toHaveClass('ship');
 });

@@ -6,6 +6,8 @@ import gameBoard from './logic/gameboard.js';
 
 import produce from 'immer';
 
+import './App.css';
+
 function App() {
   let [computerBoard, setComputerBoard] = useState(gameBoard(10));
   let [playerBoard, setPlayerBoard] = useState(gameBoard(10));
@@ -20,12 +22,15 @@ function App() {
 
   return (
     <div className="App">
-      <Board playerName="Player" board={playerBoard} />
-      <Board
-        playerName="Computer"
-        board={computerBoard}
-        handlers={handleSquareClick}
-      />
+      <div className="App__title">Battleship🛥</div>
+      <div className="App__container">
+        <Board playerName="Player" board={playerBoard} />
+        <Board
+          playerName="Computer"
+          board={computerBoard}
+          handlers={handleSquareClick}
+        />
+      </div>
     </div>
   );
 }
