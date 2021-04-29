@@ -4,7 +4,7 @@ import './Board.css';
 
 function Board(props) {
   return (
-    <div className="Board">
+    <div className="Board" data-testid="board">
       <div className="Board__title" data-testid="title">
         <span className="title__text">{props.playerName}</span>
       </div>
