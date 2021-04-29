@@ -7,6 +7,8 @@ import gameBoard from '../../logic/gameboard.js';
 
 import Board from '../../Components/Board.js';
 
+import produce from 'immer';
+
 test('title renders succesfully', () => {
   const name = 'Computer';
   const { getByTestId } = render(<Board playerName={name} />);
@@ -32,4 +34,15 @@ test('displays the correct amount of squares', () => {
   const squares = getAllByTestId('square');
 
   expect(squares.length).toBe(4);
+});
+
+test('board duplicates state correctly', () => {
+  const board = gameBoard(1);
+  let nextState = produce(board, (draft) => {
+    draft.receiveHit({ x: 0, y: 0 });
+  });
+
+  expect(() => {
+    nextState.hasWorkingShips();
+  }).not.toThrow();
 });
