@@ -7,10 +7,11 @@ import gameBoard from './logic/gameboard.js';
 import produce from 'immer';
 
 function App() {
+  let [computerBoard, setComputerBoard] = useState(gameBoard(10));
   let [playerBoard, setPlayerBoard] = useState(gameBoard(10));
 
   let handleSquareClick = (coords) => {
-    setPlayerBoard((latest) => {
+    setComputerBoard((latest) => {
       return produce(latest, (draft) => {
         draft.receiveHit(coords);
       });
@@ -19,7 +20,12 @@ function App() {
 
   return (
     <div className="App">
-      <Board title="Player" board={playerBoard} handlers={handleSquareClick} />
+      <Board playerName="Player" board={playerBoard} />
+      <Board
+        playerName="Computer"
+        board={computerBoard}
+        handlers={handleSquareClick}
+      />
     </div>
   );
 }
