@@ -70,11 +70,9 @@ test('places the correct number of ships, with the correct total', () => {
   const boards = getAllByTestId('board');
   const playerSquares = boards[0].querySelectorAll('.square');
 
-  fireEvent.click(playerSquares[0]);
-  fireEvent.click(playerSquares[1]);
-  fireEvent.click(playerSquares[2]);
-  fireEvent.click(playerSquares[3]);
-  fireEvent.click(playerSquares[4]);
+  for (let i = 0; i < 5; ++i) {
+    fireEvent.click(playerSquares[i]);
+  }
 
   let ships = boards[0].querySelectorAll('.ship');
 
