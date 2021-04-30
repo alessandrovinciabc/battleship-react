@@ -42,11 +42,11 @@ function gameBoard(size = 10) {
       if (boundToCheck + ship.size > size) return false;
 
       if (orientation === 'horizontal') {
-        for (let i = x; i < ship.size; ++i) {
+        for (let i = x; i < x + ship.size; ++i) {
           if (this.squares[y][i].shipIndex !== null) return false;
         }
       } else {
-        for (let i = y; i < ship.size; ++i) {
+        for (let i = y; i < y + ship.size; ++i) {
           if (this.squares[i][x].shipIndex !== null) return false;
         }
       }

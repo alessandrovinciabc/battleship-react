@@ -89,3 +89,15 @@ test('user can place ships horizontally', () => {
 
   expect(playerSquares[1]).toHaveClass('ship');
 });
+
+test("ships placed in different orientations don't overlap", () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  fireEvent.click(playerSquares[45]);
+  fireEvent.keyDown(document.body, { key: 'r' });
+  fireEvent.click(playerSquares[44]);
+
+  expect(playerSquares[46]).not.toHaveClass('ship');
+});
