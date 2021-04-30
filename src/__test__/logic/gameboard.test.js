@@ -97,6 +97,47 @@ describe('functionality', () => {
         newGameBoard.placeShip(anotherShip, { x: 0, y: 0 });
       }).toThrow();
     });
+
+    describe('autoplace', () => {
+      test('throws if ship sizes exceed board', () => {
+        let ships = [5, 4, 3, 3, 2];
+
+        ships = ships.map((shipSize) => {
+          return ship(shipSize);
+        });
+
+        let board = gameBoard(4); //16 squares
+
+        expect(() => {
+          board.autoPlaceShips(ships);
+        }).toThrow();
+      });
+
+      test('places all passed down ships on the board', () => {
+        let ships = [5, 4, 3, 3, 2];
+
+        ships = ships.map((shipSize) => {
+          return ship(shipSize);
+        });
+
+        let board = gameBoard(10);
+
+        board.autoPlaceShips(ships);
+
+        let allSquares = [];
+        board.squares.forEach((row) => {
+          row.forEach((square) => {
+            allSquares.push(square);
+          });
+        });
+
+        let shipSquares = allSquares.filter(
+          (square) => square.shipIndex !== null
+        );
+
+        expect(shipSquares.length).toBe(17);
+      });
+    });
   });
 
   describe('receive hit', () => {

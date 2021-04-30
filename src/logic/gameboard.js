@@ -96,6 +96,15 @@ function gameBoard(size = 10) {
       let result = this.ships.every((ship) => !ship.isSunk());
       return result;
     },
+    autoPlaceShips(arrOfShips) {
+      let totalSize = arrOfShips.reduce(
+        (accumulator, ship) => accumulator + ship.size,
+        0
+      );
+
+      if (totalSize > size)
+        throw new Error("Can't autoplace: ships exceed board size.");
+    },
   };
 }
 
