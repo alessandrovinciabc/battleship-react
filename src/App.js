@@ -15,6 +15,7 @@ function App() {
   let [computerBoard, setComputerBoard] = useState(gameBoard(10));
 
   let [orientation, setOrientation] = useState('vertical');
+  let [remainingShips, setRemainingShips] = useState([5, 4, 3, 3, 2]);
 
   useEffect(() => {
     let testBoard = gameBoard(10);
@@ -45,11 +46,17 @@ function App() {
 
   let handlePlayerBoardClick = (coords) => {
     setPlayerBoard((latest) => {
-      return produce(latest, (draft) => {
-        let newShip = ship(5);
+      if (remainingShips.length === 0) return latest;
+
+      let result = produce(latest, (draft) => {
+        let newShip = ship(remainingShips[0]);
         if (!draft.isValidPlaceForShip(newShip, coords, orientation)) return;
         draft.placeShip(newShip, coords, orientation);
+
+        setRemainingShips(remainingShips.slice(1));
       });
+
+      return result;
     });
   };
 

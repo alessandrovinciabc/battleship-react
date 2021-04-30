@@ -51,3 +51,32 @@ test("clicking twice on the same squares doesn't break anything", () => {
     fireEvent.click(playerSquare);
   }).not.toThrow();
 });
+
+test('after placing one ship, the next one you place is smaller', () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  fireEvent.click(playerSquares[0]);
+  fireEvent.click(playerSquares[1]);
+
+  let ships = boards[0].querySelectorAll('.ship');
+
+  expect(ships.length).toBe(9);
+});
+
+test('places the correct number of ships, with the correct total', () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  fireEvent.click(playerSquares[0]);
+  fireEvent.click(playerSquares[1]);
+  fireEvent.click(playerSquares[2]);
+  fireEvent.click(playerSquares[3]);
+  fireEvent.click(playerSquares[4]);
+
+  let ships = boards[0].querySelectorAll('.ship');
+
+  expect(ships.length).toBe(17);
+});
