@@ -75,14 +75,16 @@ function gameBoard(size = 10) {
     receiveHit(coords) {
       let { x, y } = coords;
       let square = this.squares[y][x];
+      let result = false;
+
       if (square.shipIndex !== null) {
         this.ships[square.shipIndex].hit(square.shipComponent);
 
-        return true;
+        result = true;
       }
       square.hit = true;
 
-      return false;
+      return result;
     },
     hasWorkingShips() {
       if (!this.ships.length) return false;
