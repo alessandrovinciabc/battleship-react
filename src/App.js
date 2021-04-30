@@ -14,6 +14,8 @@ function App() {
   let [playerBoard, setPlayerBoard] = useState(gameBoard(10));
   let [computerBoard, setComputerBoard] = useState(gameBoard(10));
 
+  let [orientation, setOrientation] = useState('vertical');
+
   useEffect(() => {
     let testBoard = gameBoard(10);
     let aShip = ship(5);
@@ -41,11 +43,23 @@ function App() {
     });
   };
 
+  let handlePlayerBoardClick = (coords) => {
+    setPlayerBoard((latest) => {
+      return produce(latest, (draft) => {
+        draft.placeShip(ship(5), coords, orientation);
+      });
+    });
+  };
+
   return (
     <div className="App">
       <div className="App__title">Battleship🛥</div>
       <div className="App__container">
-        <Board playerName="Player" board={playerBoard} />
+        <Board
+          playerName="Player"
+          board={playerBoard}
+          handlers={handlePlayerBoardClick}
+        />
         <Board
           playerName="Computer"
           board={computerBoard}

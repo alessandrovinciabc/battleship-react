@@ -28,3 +28,15 @@ test("clicking twice on the same square, doesn't trigger ai turn", () => {
 
   expect(hitSquares.length).toBe(1);
 });
+
+test('clicking on your own squares lets you place ships', () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquare = boards[0].querySelector('.square');
+
+  fireEvent.click(playerSquare);
+
+  let ships = boards[0].querySelectorAll('.ship');
+
+  expect(ships.length > 0).toBe(true);
+});
