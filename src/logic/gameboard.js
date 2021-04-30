@@ -23,7 +23,7 @@ function gameBoard(size = 10) {
   return {
     squares,
     ships: [],
-    placeShip(ship, coords, orientation = 'horizontal') {
+    isValidPlaceForShip(ship, coords, orientation) {
       let { x, y } = coords;
 
       if (orientation !== 'horizontal' && orientation !== 'vertical')
@@ -39,30 +39,34 @@ function gameBoard(size = 10) {
         boundToCheck = y;
       }
 
-      if (boundToCheck + ship.size > size)
-        throw new Error('Invalid position for ship.');
+      if (boundToCheck + ship.size > size) return false;
 
       if (orientation === 'horizontal') {
         for (let i = x; i < ship.size; ++i) {
-          if (this.squares[y][i].shipIndex !== null)
-            throw new Error(
-              'Invalid position for ship: overlaps with another.'
-            );
+          if (this.squares[y][i].shipIndex !== null) return false;
         }
+      } else {
+        for (let i = y; i < ship.size; ++i) {
+          if (this.squares[i][x].shipIndex !== null) return false;
+        }
+      }
 
+      return true;
+    },
+    placeShip(ship, coords, orientation = 'horizontal') {
+      let isValid = this.isValidPlaceForShip(ship, coords, orientation);
+
+      if (!isValid) throw new Error('Invalid placement for ship.');
+
+      let { x, y } = coords;
+
+      if (orientation === 'horizontal') {
         let count = 1;
         for (let i = x; i < x + ship.size; ++i) {
           this.squares[y][i].shipIndex = this.ships.length;
           this.squares[y][i].shipComponent = count++;
         }
       } else {
-        for (let i = y; i < ship.size; ++i) {
-          if (this.squares[i][x].shipIndex !== null)
-            throw new Error(
-              'Invalid position for ship: overlaps with another.'
-            );
-        }
-
         let count = 1;
         for (let i = y; i < y + ship.size; ++i) {
           this.squares[i][x].shipIndex = this.ships.length;

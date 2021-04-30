@@ -46,7 +46,9 @@ function App() {
   let handlePlayerBoardClick = (coords) => {
     setPlayerBoard((latest) => {
       return produce(latest, (draft) => {
-        draft.placeShip(ship(5), coords, orientation);
+        let newShip = ship(5);
+        if (!draft.isValidPlaceForShip(newShip, coords, orientation)) return;
+        draft.placeShip(newShip, coords, orientation);
       });
     });
   };

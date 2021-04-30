@@ -40,3 +40,14 @@ test('clicking on your own squares lets you place ships', () => {
 
   expect(ships.length > 0).toBe(true);
 });
+
+test("clicking twice on the same squares doesn't break anything", () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquare = boards[0].querySelector('.square');
+
+  fireEvent.click(playerSquare);
+  expect(() => {
+    fireEvent.click(playerSquare);
+  }).not.toThrow();
+});
