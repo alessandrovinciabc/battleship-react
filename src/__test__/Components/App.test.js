@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent } from '@testing-library/react';
+import { render, fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import App from '../../App.js';
@@ -77,4 +77,15 @@ test('places the correct number of ships, with the correct total', () => {
   let ships = boards[0].querySelectorAll('.ship');
 
   expect(ships.length).toBe(17);
+});
+
+test('user can place ships horizontally', () => {
+  const { getAllByTestId } = render(<App />);
+  const boards = getAllByTestId('board');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  fireEvent.keyDown(document.body, { key: 'r' });
+  fireEvent.click(playerSquares[0]);
+
+  expect(playerSquares[1]).toHaveClass('ship');
 });

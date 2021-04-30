@@ -44,6 +44,22 @@ function App() {
     });
   };
 
+  useEffect(() => {
+    let onKeyDown = (e) => {
+      if (e.key === 'r' || e.key === 'R') {
+        setOrientation((prev) => {
+          return prev === 'horizontal' ? 'vertical' : 'horizontal';
+        });
+      }
+    };
+
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, []);
+
   let handlePlayerBoardClick = (coords) => {
     setPlayerBoard((latest) => {
       if (remainingShips.length === 0) return latest;
