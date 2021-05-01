@@ -1,18 +1,13 @@
 function createBoardSquares(size) {
-  let yArray = [];
-  for (let i = 0; i < size; ++i) {
-    let xArray = [];
-    for (let k = 0; k < size; ++k) {
-      xArray.push({
+  return Array.from({ length: size }, () => {
+    return Array.from({ length: size }, () => {
+      return {
         shipIndex: null,
         shipComponent: null,
         hit: false,
-      });
-    }
-    yArray.push(xArray);
-  }
-
-  return yArray;
+      };
+    });
+  });
 }
 
 function gameBoard(size = 10) {
