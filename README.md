@@ -30,3 +30,5 @@ You will also see any lint errors in the console.
 ## Screenshot
 
 [![Screenshot-2021-05-01-Battleship.png](https://i.postimg.cc/FF3wn9qq/Screenshot-2021-05-01-Battleship.png)](https://postimg.cc/jCq8DrRQ)
+
+[![Screenshot-2021-05-01-Code-coverage-report-for-All-files.png](https://i.postimg.cc/yNCLR968/Screenshot-2021-05-01-Code-coverage-report-for-All-files.png)](https://postimg.cc/hXM8WX7k)
