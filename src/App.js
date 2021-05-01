@@ -121,6 +121,7 @@ function App() {
           playerName="Computer"
           board={computerBoard}
           handlers={handleSquareClick}
+          className="Board--computer"
         />
       </div>
     </div>

@@ -10,6 +10,10 @@
   position: relative;
 }
 
+.Board--computer .ship {
+  background-color: white;
+}
+
 .Board__title {
   width: 50px;
   position: relative;
