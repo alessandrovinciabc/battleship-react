@@ -24,7 +24,11 @@ function App() {
     'Place your ships by clicking. Press R to rotate.'
   );
 
+  let [gameRestart, setGameRestart] = useState(true);
+
   useEffect(() => {
+    if (!gameRestart) return;
+
     let testBoard = gameBoard(10);
     let ships = [5, 4, 3, 3, 2];
 
@@ -35,7 +39,8 @@ function App() {
     testBoard.autoPlaceShips(ships);
 
     setComputerBoard(testBoard);
-  }, []);
+    setGameRestart(false);
+  }, [gameRestart]);
 
   let handleSquareClick = (coords) => {
     if (gameEnded || remainingShips.length > 0) return;
@@ -102,6 +107,18 @@ function App() {
     });
   };
 
+  let onReset = () => {
+    setRemainingShips([5, 4, 3, 3, 2]);
+    setPlayerHasWon(false);
+    setGameEnded(false);
+    setOrder('Place your ships by clicking. Press R to rotate.');
+
+    setPlayerBoard(gameBoard(10));
+    setComputerBoard(gameBoard(10));
+
+    setGameRestart(true);
+  };
+
   return (
     <div className="App">
       <div className="App__title">Battleship🛥</div>
@@ -111,6 +128,9 @@ function App() {
           {playerHasWon ? 'Player' : 'Computer'} has won!
         </div>
       ) : null}
+      <button className="button--reset" onClick={onReset}>
+        Reset
+      </button>
       <div className="App__container">
         <Board
           playerName="Player"

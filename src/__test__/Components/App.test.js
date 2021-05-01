@@ -125,3 +125,18 @@ test('when player hits all ships, a winning message is shown', () => {
 
   expect(winningText).not.toBeNull();
 });
+
+test('when player clicks on reset button, the board resets', () => {
+  const { getAllByTestId, getByText } = render(<App />);
+  const boards = getAllByTestId('board');
+  const pSquares = boards[0].querySelectorAll('.square');
+  const resetButton = getByText(/reset/i);
+
+  for (let i = 0; i < 5; ++i) {
+    fireEvent.click(pSquares[i]);
+  }
+
+  fireEvent.click(resetButton);
+
+  expect(boards[0].querySelectorAll('.ship, .square--hit').length).toBe(0);
+});

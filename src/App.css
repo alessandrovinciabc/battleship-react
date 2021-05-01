@@ -39,3 +39,11 @@
   color: red;
   text-align: center;
 }
+
+.button--reset {
+  width: 6rem;
+  height: 2rem;
+
+  margin: 0 auto;
+  font-size: 1rem;
+}
