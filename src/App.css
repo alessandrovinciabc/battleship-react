@@ -23,3 +23,11 @@
 
   justify-content: center;
 }
+
+.text--winning {
+  font-size: 2rem;
+  font-weight: bold;
+
+  color: navy;
+  text-align: center;
+}

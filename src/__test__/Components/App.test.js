@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { render, fireEvent, screen } from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 import App from '../../App.js';
@@ -20,6 +20,11 @@ test("clicking twice on the same square, doesn't trigger ai turn", () => {
   const { getAllByTestId } = render(<App />);
   const boards = getAllByTestId('board');
   const computerSquare = boards[1].querySelector('.square');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  for (let i = 0; i < 5; ++i) {
+    fireEvent.click(playerSquares[i]);
+  }
 
   fireEvent.click(computerSquare);
   fireEvent.click(computerSquare);
@@ -100,4 +105,23 @@ test("ships placed in different orientations don't overlap", () => {
   fireEvent.click(playerSquares[44]);
 
   expect(playerSquares[46]).not.toHaveClass('ship');
+});
+
+test('when player hits all ships, a winning message is shown', () => {
+  const { getAllByTestId, queryByText } = render(<App />);
+  const boards = getAllByTestId('board');
+  const ships = boards[1].querySelectorAll('.ship');
+  const playerSquares = boards[0].querySelectorAll('.square');
+
+  for (let i = 0; i < 5; ++i) {
+    fireEvent.click(playerSquares[i]);
+  }
+
+  for (let i = 0; i < ships.length; ++i) {
+    fireEvent.click(ships[i]);
+  }
+
+  const winningText = queryByText(/Player has won!/i);
+
+  expect(winningText).not.toBeNull();
 });

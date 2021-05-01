@@ -17,6 +17,9 @@ function App() {
   let [orientation, setOrientation] = useState('vertical');
   let [remainingShips, setRemainingShips] = useState([5, 4, 3, 3, 2]);
 
+  let [gameEnded, setGameEnded] = useState(false);
+  let [playerHasWon, setPlayerHasWon] = useState(false);
+
   useEffect(() => {
     let testBoard = gameBoard(10);
     let ships = [5, 4, 3, 3, 2];
@@ -31,6 +34,7 @@ function App() {
   }, []);
 
   let handleSquareClick = (coords) => {
+    if (gameEnded || remainingShips.length > 0) return;
     let setPlayerBoardCallback = (latest) => {
       return produce(latest, (draft) => {
         let move = computer.pickMove(draft);
@@ -45,6 +49,11 @@ function App() {
 
       return produce(latest, (draft) => {
         draft.receiveHit(coords);
+
+        if (!draft.hasWorkingShips()) {
+          setGameEnded(true);
+          setPlayerHasWon(true);
+        }
       });
     });
   };
@@ -84,6 +93,9 @@ function App() {
   return (
     <div className="App">
       <div className="App__title">Battleship🛥</div>
+      {playerHasWon ? (
+        <div className="text--winning">Player has won!</div>
+      ) : null}
       <div className="App__container">
         <Board
           playerName="Player"

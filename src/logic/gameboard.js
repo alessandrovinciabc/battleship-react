@@ -142,7 +142,7 @@ function gameBoard(size = 10) {
     hasWorkingShips() {
       if (!this.ships.length) return false;
 
-      let result = this.ships.every((ship) => !ship.isSunk());
+      let result = this.ships.some((ship) => !ship.isSunk());
       return result;
     },
     autoPlaceShips(arrOfShips) {
