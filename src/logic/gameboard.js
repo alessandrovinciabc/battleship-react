@@ -1,13 +1,15 @@
+import create2D from './util/array';
+
 function createBoardSquares(size) {
-  return Array.from({ length: size }, () => {
-    return Array.from({ length: size }, () => {
-      return {
-        shipIndex: null,
-        shipComponent: null,
-        hit: false,
-      };
-    });
-  });
+  let callback = () => {
+    return {
+      shipIndex: null,
+      shipComponent: null,
+      hit: false,
+    };
+  };
+
+  return create2D(size, size, callback);
 }
 
 function gameBoard(size = 10) {
