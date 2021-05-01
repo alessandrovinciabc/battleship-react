@@ -20,6 +20,10 @@ function App() {
   let [gameEnded, setGameEnded] = useState(false);
   let [playerHasWon, setPlayerHasWon] = useState(false);
 
+  let [order, setOrder] = useState(
+    'Place your ships by clicking. Press R to rotate.'
+  );
+
   useEffect(() => {
     let testBoard = gameBoard(10);
     let ships = [5, 4, 3, 3, 2];
@@ -39,6 +43,10 @@ function App() {
       return produce(latest, (draft) => {
         let move = computer.pickMove(draft);
         draft.receiveHit(move);
+        if (!draft.hasWorkingShips()) {
+          setGameEnded(true);
+          setOrder('');
+        }
       });
     };
 
@@ -53,6 +61,7 @@ function App() {
         if (!draft.hasWorkingShips()) {
           setGameEnded(true);
           setPlayerHasWon(true);
+          setOrder('');
         }
       });
     });
@@ -84,6 +93,9 @@ function App() {
         draft.placeShip(newShip, coords, orientation);
 
         setRemainingShips(remainingShips.slice(1));
+        if (remainingShips.length - 1 === 0) {
+          setOrder('Game has begun! Make your move.');
+        }
       });
 
       return result;
@@ -93,8 +105,11 @@ function App() {
   return (
     <div className="App">
       <div className="App__title">Battleship🛥</div>
-      {playerHasWon ? (
-        <div className="text--winning">Player has won!</div>
+      <div className="text--order">{order}</div>
+      {gameEnded ? (
+        <div className="text--winning">
+          {playerHasWon ? 'Player' : 'Computer'} has won!
+        </div>
       ) : null}
       <div className="App__container">
         <Board
