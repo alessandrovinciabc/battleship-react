@@ -19,8 +19,13 @@ function App() {
 
   useEffect(() => {
     let testBoard = gameBoard(10);
-    let aShip = ship(5);
-    testBoard.placeShip(aShip, { x: 0, y: 0 }, 'vertical');
+    let ships = [5, 4, 3, 3, 2];
+
+    ships = ships.map((shipSize) => {
+      return ship(shipSize);
+    });
+
+    testBoard.autoPlaceShips(ships);
 
     setComputerBoard(testBoard);
   }, []);
