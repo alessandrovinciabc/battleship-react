@@ -25,12 +25,3 @@ test('the elements of the arrays can be set through a callback', () => {
     );
   });
 });
-
-test('can cycle through all elements and do something', () => {
-  let newArr = create2D(2, 2);
-  newArr.cycleThrough((el) => 'working');
-
-  newArr.forEach((xArray) => {
-    expect(xArray).toEqual(expect.arrayContaining(Array(2).fill('working')));
-  });
-});
