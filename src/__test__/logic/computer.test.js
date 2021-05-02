@@ -1,4 +1,5 @@
 import gameBoard from '../../logic/gameboard.js';
+import ship from '../../logic/ship.js';
 
 import computer from '../../logic/computer.js';
 import getRandomNumber from '../../logic/util/random.js';
@@ -34,4 +35,18 @@ test('throws if all squares are already hit', () => {
   expect(() => {
     computer.pickMove(board);
   }).toThrow();
+});
+
+test('hits adjacent squares after getting a hit', () => {
+  let board = gameBoard(3);
+  let newShip = ship(1);
+  board.placeShip(newShip, { x: 1, y: 1 });
+
+  getRandomNumber.mockReset();
+  getRandomNumber.mockReturnValueOnce(4);
+  getRandomNumber.mockReturnValueOnce(0);
+
+  board.receiveHit(computer.pickMove(board));
+
+  expect(computer.pickMove(board)).toMatchObject({ x: 1, y: 2 });
 });
